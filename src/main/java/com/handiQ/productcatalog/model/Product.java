@@ -1,6 +1,7 @@
 package com.handiQ.productcatalog.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,5 +18,6 @@ public class Product {
     
     @ManyToOne
     @JoinColumn(name="category_id",nullable = false)
+    @JsonBackReference
     private Category category;
 }

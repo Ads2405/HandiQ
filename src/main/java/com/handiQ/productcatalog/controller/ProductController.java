@@ -2,10 +2,7 @@ package com.handiQ.productcatalog.controller;
 
 import com.handiQ.productcatalog.model.Product;
 import com.handiQ.productcatalog.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,9 @@ public class ProductController {
     @GetMapping("/category/{categoryId}")
     public  List<Product> getAllProductsByCategory(@PathVariable Long categoryId){
         return productService.getProductByCategory(categoryId);
+    }
+    @PostMapping("/addProduct")
+    public Product addProduct(@RequestBody Product product){
+        return productService.addProduct(product);
     }
 }

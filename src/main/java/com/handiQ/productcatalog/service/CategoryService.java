@@ -16,6 +16,12 @@ public class CategoryService {
     }
 
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        return (List<Category>) categoryRepository.findAll();
+    }
+
+    public Category addCategory(Category category){
+//        category.setName(category.getName());
+
+        return categoryRepository.saveAndFlush(category);
     }
 }
