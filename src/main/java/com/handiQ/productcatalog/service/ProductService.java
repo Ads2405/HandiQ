@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -39,8 +40,27 @@ public class ProductService {
             }
             product.setCategory(category);
         }
-
         // Save the Product
         return productRepository.saveAndFlush(product);
+    }
+
+    public void deleteProduct(Long id) {
+
+        Optional<Product> op =productRepository.findById(id);
+
+        if (op.isPresent()) {
+//            Product product = op.get();
+//
+//
+//            if (product.getId()==null) {
+//                System.out.println("Invalid Request: Products doesnt exists.");
+//            } else {
+                productRepository.deleteById(id);
+                System.out.println("Product deleted successfully.");
+//            }
+        } else {
+            // If the category is not found, print an error message
+            System.out.println("Product not found with ID: " + id);
+        }
     }
 }
