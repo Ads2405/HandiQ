@@ -4,6 +4,7 @@ import com.handiQ.productcatalog.model.Category;
 import com.handiQ.productcatalog.model.Product;
 import com.handiQ.productcatalog.repository.CategoryRepository;
 import com.handiQ.productcatalog.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,4 +64,31 @@ public class ProductService {
             System.out.println("Product not found with ID: " + id);
         }
     }
+    public void updateProduct(Long id, Product product) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found."));
+
+        boolean isUpdated = false;
+
+        if (product.getName() != null && !product.getName().equals(existingProduct.getName())) {
+            existingProduct.setName(product.getName());
+            isUpdated = true;
+        }
+
+
+        if (product.getPrice() != null && !product.getPrice().equals(existingProduct.getPrice())) {
+            existingProduct.setPrice(product.getPrice());
+            isUpdated = true;
+        }
+
+        if (product.getDescription() != null && !product.getDescription().equals(existingProduct.getDescription())) {
+            existingProduct.setDescription(product.getDescription());
+            isUpdated = true;
+        }
+
+        if (isUpdated) {
+            productRepository.save(existingProduct);
+        }
+    }
+
 }
